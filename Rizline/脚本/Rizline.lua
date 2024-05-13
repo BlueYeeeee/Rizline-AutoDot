@@ -11,20 +11,29 @@ function onLoadEvent(handle)
 end
 action,arr = showUI("in.ui",800,600,onLoadEvent);
 
-
+flag=0
 
 function main()
 	--保存配置
-    
+    console.dismiss()
 	txt = "\"server\":\""..arr["server"].."\",".."\"target\":\""..arr["target"].."\",".."\"get\":\""..get.."\""
 	writeFile(path,"{"..txt.."}" ,false)
+    getold=false
     if math.tointeger(get)>math.tointeger(arr["target"]) then
-    	exitScript()
-        console.println(3,"结束")
+        console.println(3,"达到设定Dot值，结束")
+        console.show()
+        flag=1
+        exitScript()
     end
 	while cmpColorEx(接下来,0.9)==0 do
 		tap(638,364)
 		sleep(200)
+        if cmpColorEx(溢出,0.9)==1 then
+        	console.println(3,"Dot溢出，结束")
+            flag=1
+            console.show()
+        	exitScript()
+        end
 		if cmpColorEx(确定,0.9)==1 then
 			tap(752,252)
 			sleep(200)
@@ -34,21 +43,26 @@ function main()
     while cmpColorEx(暂停,0.9)==0 do
     	swipe(260,379,494,362,10)
     end
-    sleep(1500)
-    swipe(494,362,39,344,100)
-    while cmpColorEx(暂停,0.9)==0 do
-       sleep(1)
+    
+    sleep(1400)
+    if cmpColorEx(大暂停,0.9)==1 then
+    	swipe(494,362,39,344,100)
+    	toast("big pause",0,0,12)
+    	sleep(2870)
+    else
+    	swipe(494,362,39,344,100)
+        sleep(2940)
     end
-	sleep(3000)
+    
+	
 	playsong()
     toast("judging acc")
     judgeacc()
     writeLog(get)
-	sleep(5000)
 end
 
 function playsong()
-	sleep(8150)
+	sleep(8140)
 	toast("start")
 	tap(638,364)
 	sleep(3200)
@@ -67,9 +81,9 @@ function playsong()
 	tap(638,364)
 	sleep(1600)
 	tap(638,364)
-	sleep(1690)
+	sleep(1670)
 	touchDown(1,638,364)
-	sleep(26870)
+	sleep(26890)
 	touchUp(1)
 	sleep(310)
 	---进入高潮段
@@ -121,15 +135,15 @@ function playsong()
 	toast("hold stopped")
 	sleep(1400)
 	tap(638,364)
-	sleep(810)
+	sleep(800)
 	tap(638,364)
-	sleep(810)
+	sleep(800)
 	tap(638,364)
 	sleep(1600)
 	tap(638,364)
-	sleep(810)
+	sleep(800)
 	tap(638,364)
-	sleep(810)
+	sleep(800)
 	tap(638,364)
 	sleep(1600)
 	touchDown(1,500,500)
@@ -163,7 +177,7 @@ function judgeacc()
     elseif cmpColorEx(acc80,0.9)==1 then
         get=get+9
     end
-    print(get)
+    getold=true
 end
 get=math.tointeger(arr["get"])
 sleep(200)
@@ -175,5 +189,26 @@ end
 setControlBarPosNew(0,1)
 sleep(500)
 while true do
-	main()
+	local tid=beginThread(main)
+    	while true do
+    		if cmpColorEx(失败,0.95)==1 then
+    				stopThread(tid)
+                    toast("本次游玩失败，正在重开",0,0,12)
+                    console.println(3,"本次游玩失败，正在重开")
+                    sleep(2000)
+                    break
+    		elseif getold then
+            	sleep(5000)
+            	toast("成功游玩",0,0,12)
+            	break
+            elseif flag==1 then
+                	stopThread(tid)
+                	break
+                end
+    	end
+    if flag==1 then
+    	stopThread(tid)
+    	break
+    end
 end
+exitScript()
