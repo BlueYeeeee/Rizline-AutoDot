@@ -201,7 +201,7 @@ while true do
                     	toast("失败次数过多，请求手动重启",0,0,12)
                         console.println(3,"失败次数过多，请求手动重启")
                         break
-                    	
+                    end	
                     sleep(2000)
                     break
     		elseif getold then
@@ -213,7 +213,7 @@ while true do
                 	break
                 end
     	end
-    if flag==1 or restime==3then
+    if flag==1 or restime==3 then
     	stopThread(tid)
     	break
     end
