@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<lcproj projname="Rizline" appname="RizlineAutoDot" autorotate="false" autorun="1" autorunscript="0" cputype="2" icon="E:\LazyMaster\script\Rizline\QQ½ØÍ¼20231016201243.png" is_acc_mode="0" jmpjdcheck="0" localmode="true" pkgname="com.autodot.bluefe" rgbmode="true" sel="0" showhome="1" targetsize="0x0" useocr="0" useoldmenu="0" ver="31">
+    <lua entry="Rizline.lua">
+        <file name="point.lua"/>
+    </lua>
+    <rc entry="Rizline.rc"/>
+    <ui entry="Rizline.ui">
+        <file name="in.ui"/>
+    </ui>
+    <luae entry="">
+        <file name="x86"/>
+        <file name="armeabi-v7a"/>
+    </luae>
+</lcproj>
