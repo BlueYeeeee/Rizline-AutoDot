@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<lcproj projname="Rizline7.1" appname="Rizline7" autorotate="false" autorun="1" autorunscript="0" cputype="2" is_acc_mode="0" jmpjdcheck="0" localmode="true" pkgname="com.rizdot71.leiting" rgbmode="false" sel="0" showhome="1" targetsize="0x0" useocr="0" useoldmenu="0" ver="36" icon="E:\LazyMaster\script\Rizline7.1\Í·Ïñfurry.png">
+    <lua entry="Rizline7.1.lua">
+        <file name="point.lua"/>
+    </lua>
+    <rc entry="Rizline7.1.rc"/>
+    <ui entry="Rizline7.1.ui">
+        <file name="in.ui"/>
+    </ui>
+    <luae entry="">
+        <file name="armeabi-v7a"/>
+        <file name="x86"/>
+    </luae>
+</lcproj>
