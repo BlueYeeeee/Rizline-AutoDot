@@ -12,7 +12,7 @@ end
 action,arr = showUI("in.ui",800,600,onLoadEvent);
 
 flag=0
-
+restime=0
 function main()
 	--保存配置
     console.dismiss()
@@ -195,6 +195,13 @@ while true do
     				stopThread(tid)
                     toast("本次游玩失败，正在重开",0,0,12)
                     console.println(3,"本次游玩失败，正在重开")
+                    restime=restime+1
+                    if restime ==3 then
+                    	sleep(200)
+                    	toast("失败次数过多，请求手动重启",0,0,12)
+                        console.println(3,"失败次数过多，请求手动重启")
+                        break
+                    	
                     sleep(2000)
                     break
     		elseif getold then
@@ -206,9 +213,14 @@ while true do
                 	break
                 end
     	end
-    if flag==1 then
+    if flag==1 or restime==3then
     	stopThread(tid)
     	break
     end
 end
-exitScript()
+if restime==3 then
+	restartScript()
+    restime=0
+else
+	exitScript()
+end
