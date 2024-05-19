@@ -1,5 +1,6 @@
 require("point")
 
+restarflag=0
 path= getSdPath().."/rizline.txt"
 if fileExist(path)==false then--写文件，文件不存在则创建初始化文件
 	writeFile(path,"{\"server\":\"1\",\"target\":\"0\",\"get\":\"0\"}" ,false)
@@ -9,10 +10,14 @@ uisetfile=readFile(path)
 function onLoadEvent(handle)
 	setUIConfig(handle,uisetfile)
 end
-action,arr = showUI("in.ui",800,600,onLoadEvent);
+if restarflag==0 then
+	action,arr = showUI("in.ui",800,600,onLoadEvent);
+end
+
 
 flag=0
 restime=0
+canjudge=false
 function main()
 	--保存配置
     console.dismiss()
@@ -51,7 +56,7 @@ function main()
     	sleep(2870)
     else
     	swipe(494,362,39,344,100)
-        sleep(2955)
+        sleep(2945)
     end
     
 	
@@ -83,7 +88,15 @@ function playsong()
 	tap(638,364)
 	sleep(1670)
 	touchDown(1,638,364)
-	sleep(26880)
+    if cmpColorEx(血条,0.9)==0 then
+    	touchUp(1)
+        swipe(260,379,520,362,100)
+        sleep(200)
+        swipe(520,362,1020,362,100)
+        restime=restime+1
+        toast("血不够打完，直接重开",0,0,12)
+    else
+	sleep(26878)
 	touchUp(1)
 	sleep(310)
 	---进入高潮段
@@ -163,6 +176,8 @@ function playsong()
 	sleep(3200)
 	touchUp(1)
 	touchUp(2)
+    canjudge=true
+   	end
 end
 
 function judgeacc()
@@ -177,7 +192,10 @@ function judgeacc()
     elseif cmpColorEx(acc80,0.9)==1 then
         get=get+9
     end
-    getold=true
+    if canjudge then
+    	getold=true
+    end
+    
 end
 get=math.tointeger(arr["get"])
 sleep(200)
@@ -207,11 +225,19 @@ while true do
     		elseif getold then
             	sleep(5000)
             	toast("成功游玩",0,0,12)
+                canjudge=false
+                restime=0
             	break
             elseif flag==1 then
                 	stopThread(tid)
                 	break
-                end
+            elseif restime ==3 then
+                sleep(200)
+                toast("失败次数过多，请求手动重启",0,0,12)
+                console.println(3,"失败次数过多，请求手动重启")
+                break
+            
+            end
     	end
     if flag==1 or restime==3 then
     	stopThread(tid)
@@ -219,8 +245,10 @@ while true do
     end
 end
 if restime==3 then
-	restartScript()
-    restime=0
+	restime=0
+    restartflag=1
+    restartScript()
+    
 else
 	exitScript()
 end
