@@ -41,17 +41,17 @@ function main()
 	end
 
     while cmpColorEx(‘›Õ£,0.9)==0 do
-    	swipe(260,379,494,362,10)
+    	swipe(260,379,520,362,10)
     end
     
     sleep(1400)
-    if cmpColorEx(¥Û‘›Õ£,0.9)==1 then
+    if cmpColorEx(¥Û‘›Õ£,0.95)==1 then
     	swipe(494,362,39,344,100)
     	toast("big pause",0,0,12)
     	sleep(2870)
     else
     	swipe(494,362,39,344,100)
-        sleep(2940)
+        sleep(2955)
     end
     
 	
@@ -75,7 +75,7 @@ function playsong()
 	tap(638,364)
 	sleep(1580)
 	tap(638,364)
-	sleep(1570)
+	sleep(1580)
 	tap(638,364)
 	sleep(1580)
 	tap(638,364)
@@ -83,7 +83,7 @@ function playsong()
 	tap(638,364)
 	sleep(1670)
 	touchDown(1,638,364)
-	sleep(26890)
+	sleep(26880)
 	touchUp(1)
 	sleep(310)
 	---Ω¯»Î∏ﬂ≥±∂Œ
@@ -100,16 +100,16 @@ function playsong()
 	sleep(1600)
 	touchUp(1)
 	touchDown(1,638,364)
-	sleep(1580)
-	touchUp(1)
-	touchDown(1,638,364)
-	sleep(1590)
+	sleep(1600)
 	touchUp(1)
 	touchDown(1,638,364)
 	sleep(1600)
 	touchUp(1)
 	touchDown(1,638,364)
-	sleep(2570)
+	sleep(1600)
+	touchUp(1)
+	touchDown(1,638,364)
+	sleep(2540)
 	touchUp(1)
 	---riztime phase 2
 	sleep(618)
