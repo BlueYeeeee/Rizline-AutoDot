@@ -1,6 +1,6 @@
 require("point")
 
-restarflag=0
+restartflag=0
 path= getSdPath().."/rizline.txt"
 if fileExist(path)==false then--写文件，文件不存在则创建初始化文件
 	writeFile(path,"{\"server\":\"1\",\"target\":\"0\",\"get\":\"0\"}" ,false)
@@ -10,13 +10,14 @@ uisetfile=readFile(path)
 function onLoadEvent(handle)
 	setUIConfig(handle,uisetfile)
 end
-if restarflag==0 then
+if restartflag==0 then
 	action,arr = showUI("in.ui",800,600,onLoadEvent);
 end
 
 
 flag=0
 restime=0
+breakflag=false
 canjudge=false
 function main()
 	--保存配置
@@ -95,6 +96,8 @@ function playsong()
         swipe(520,362,1020,362,100)
         restime=restime+1
         toast("血不够打完，直接重开",0,0,12)
+        breakflag=true
+        sleep(2000)
     else
 	sleep(26878)
 	touchUp(1)
@@ -228,7 +231,7 @@ while true do
                 canjudge=false
                 restime=0
             	break
-            elseif flag==1 or restartflag then
+            elseif flag==1 or breakflag then
                 	stopThread(tid)
                 	break
             elseif restime ==3 then
