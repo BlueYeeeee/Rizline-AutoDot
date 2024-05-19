@@ -228,7 +228,7 @@ while true do
                 canjudge=false
                 restime=0
             	break
-            elseif flag==1 then
+            elseif flag==1 or restartflag then
                 	stopThread(tid)
                 	break
             elseif restime ==3 then
@@ -236,7 +236,6 @@ while true do
                 toast("失败次数过多，请求手动重启",0,0,12)
                 console.println(3,"失败次数过多，请求手动重启")
                 break
-            
             end
     	end
     if flag==1 or restime==3 then
