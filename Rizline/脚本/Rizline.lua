@@ -2,11 +2,11 @@ require("point")
 
 restartflag=0
 path= getSdPath().."/rizline.txt"
-if fileExist(path)==false then--å†™æ–‡ä»¶ï¼Œæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ›å»ºåˆå§‹åŒ–æ–‡ä»¶
-	writeFile(path,"{\"server\":\"1\",\"target\":\"0\",\"get\":\"0\"}" ,false)
+if fileExist(path)==false then--Ğ´ÎÄ¼ş£¬ÎÄ¼ş²»´æÔÚÔò´´½¨³õÊ¼»¯ÎÄ¼ş
+	writeFile(path,"{\"server\":\"1\",\"target\":\"0\",\"get\":\"0\",\"Dotfull\":\"0\",\"Dottarget\":\"0\"}" ,false)
 end
 uisetfile=readFile(path)
---æ‰“å¼€ç•Œé¢å¹¶åŠ è½½é…ç½®
+--´ò¿ª½çÃæ²¢¼ÓÔØÅäÖÃ
 function onLoadEvent(handle)
 	setUIConfig(handle,uisetfile)
 end
@@ -20,38 +20,38 @@ restime=0
 breakflag=false
 canjudge=false
 function main()
-	--ä¿å­˜é…ç½®
+	--±£´æÅäÖÃ
     console.dismiss()
-	txt = "\"server\":\""..arr["server"].."\",".."\"target\":\""..arr["target"].."\",".."\"get\":\""..get.."\""
+	txt = "\"server\":\""..arr["server"].."\",".."\"target\":\""..arr["target"].."\",".."\"get\":\""..get.."\",".."\"Dotfull\":\""..arr["Dotfull"].."\",".."\"Dottarget\":\""..arr["Dottarget"].."\""
 	writeFile(path,"{"..txt.."}" ,false)
     getold=false
-    if math.tointeger(get)>math.tointeger(arr["target"]) then
-        console.println(3,"è¾¾åˆ°è®¾å®šDotå€¼ï¼Œç»“æŸ")
+    if math.tointeger(get)>math.tointeger(arr["target"]) and math.tointeger(arr["Dottarget"])==0 then
+        console.println(3,"´ïµ½Éè¶¨DotÖµ£¬½áÊø")
         console.show()
         flag=1
         exitScript()
     end
-	while cmpColorEx(æ¥ä¸‹æ¥,0.9)==0 do
+	while cmpColorEx(½ÓÏÂÀ´,0.9)==0 do
 		tap(638,364)
 		sleep(200)
-        if cmpColorEx(æº¢å‡º,0.9)==1 then
-        	console.println(3,"Dotæº¢å‡ºï¼Œç»“æŸ")
+        if cmpColorEx(Òç³ö,0.9)==1 and math.tointeger(arr["Dotfull"])==0 then
+        	console.println(3,"DotÒç³ö£¬½áÊø")
             flag=1
             console.show()
         	exitScript()
         end
-		if cmpColorEx(ç¡®å®š,0.9)==1 then
+		if cmpColorEx(È·¶¨,0.9)==1 then
 			tap(752,252)
 			sleep(200)
 		end
 	end
 
-    while cmpColorEx(æš‚åœ,0.9)==0 do
+    while cmpColorEx(ÔİÍ£,0.9)==0 do
     	swipe(260,379,520,362,10)
     end
     
     sleep(1400)
-    if cmpColorEx(å¤§æš‚åœ,0.95)==1 then
+    if cmpColorEx(´óÔİÍ£,0.95)==1 then
     	swipe(494,362,39,344,100)
     	toast("big pause",0,0,12)
     	sleep(2870)
@@ -89,20 +89,20 @@ function playsong()
 	tap(638,364)
 	sleep(1670)
 	touchDown(1,638,364)
-    if cmpColorEx(è¡€æ¡,0.9)==0 then
+    if cmpColorEx(ÑªÌõ,0.9)==0 then
     	touchUp(1)
         swipe(260,379,520,362,100)
         sleep(200)
         swipe(520,362,1020,362,100)
         restime=restime+1
-        toast("è¡€ä¸å¤Ÿæ‰“å®Œï¼Œç›´æ¥é‡å¼€",0,0,12)
+        toast("Ñª²»¹»´òÍê£¬Ö±½ÓÖØ¿ª",0,0,12)
         breakflag=true
         sleep(2000)
     else
 	sleep(26878)
 	touchUp(1)
 	sleep(310)
-	---è¿›å…¥é«˜æ½®æ®µ
+	---½øÈë¸ß³±¶Î
 	touchDown(1,638,364)
 	sleep(1600)
 	touchUp(1)
@@ -212,22 +212,22 @@ sleep(500)
 while true do
 	local tid=beginThread(main)
     	while true do
-    		if cmpColorEx(å¤±è´¥,0.95)==1 then
+    		if cmpColorEx(Ê§°Ü,0.95)==1 then
     				stopThread(tid)
-                    toast("æœ¬æ¬¡æ¸¸ç©å¤±è´¥ï¼Œæ­£åœ¨é‡å¼€",0,0,12)
-                    console.println(3,"æœ¬æ¬¡æ¸¸ç©å¤±è´¥ï¼Œæ­£åœ¨é‡å¼€")
+                    toast("±¾´ÎÓÎÍæÊ§°Ü£¬ÕıÔÚÖØ¿ª",0,0,12)
+                    console.println(3,"±¾´ÎÓÎÍæÊ§°Ü£¬ÕıÔÚÖØ¿ª")
                     restime=restime+1
                     if restime ==3 then
                     	sleep(200)
-                    	toast("å¤±è´¥æ¬¡æ•°è¿‡å¤šï¼Œè¯·æ±‚æ‰‹åŠ¨é‡å¯",0,0,12)
-                        console.println(3,"å¤±è´¥æ¬¡æ•°è¿‡å¤šï¼Œè¯·æ±‚æ‰‹åŠ¨é‡å¯")
+                    	toast("Ê§°Ü´ÎÊı¹ı¶à£¬ÇëÇóÊÖ¶¯ÖØÆô",0,0,12)
+                        console.println(3,"Ê§°Ü´ÎÊı¹ı¶à£¬ÇëÇóÊÖ¶¯ÖØÆô")
                         break
                     end	
                     sleep(2000)
                     break
     		elseif getold then
             	sleep(5000)
-            	toast("æˆåŠŸæ¸¸ç©",0,0,12)
+            	toast("³É¹¦ÓÎÍæ",0,0,12)
                 canjudge=false
                 restime=0
             	break
@@ -238,8 +238,8 @@ while true do
                 	break
             elseif restime ==3 then
                 sleep(200)
-                toast("å¤±è´¥æ¬¡æ•°è¿‡å¤šï¼Œè¯·æ±‚æ‰‹åŠ¨é‡å¯",0,0,12)
-                console.println(3,"å¤±è´¥æ¬¡æ•°è¿‡å¤šï¼Œè¯·æ±‚æ‰‹åŠ¨é‡å¯")
+                toast("Ê§°Ü´ÎÊı¹ı¶à£¬ÇëÇóÊÖ¶¯ÖØÆô",0,0,12)
+                console.println(3,"Ê§°Ü´ÎÊı¹ı¶à£¬ÇëÇóÊÖ¶¯ÖØÆô")
                 break
             end
     	end
