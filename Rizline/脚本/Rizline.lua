@@ -59,7 +59,7 @@ function main()
     	swipe(494,362,39,344,100)
         sleep(2900)
     end
-    
+    sleep(180)
 	
 	playsong()
     toast("judging acc")
@@ -70,24 +70,43 @@ end
 function playsong()
 	sleep(8140)
 	toast("start")
-	tap(638,364)
-	sleep(3200)
-	tap(638,364)
-	sleep(2850)
-	tap(638,364)
-	sleep(1570)
-	tap(638,364)
-	sleep(1570)
-	tap(638,364)
-	sleep(1580)
-	tap(638,364)
-	sleep(1580)
-	tap(638,364)
-	sleep(1580)
-	tap(638,364)
-	sleep(1600)
-	tap(638,364)
-	sleep(1670)
+	---tap(638,364)
+    touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(2700)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(2350)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1070)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1070)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1080)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1080)
+	touchDown(1,638,364)
+    sleep(300)
+    touchUp(1)
+	sleep(1280)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1100)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1170)
 	touchDown(1,638,364)
     if cmpColorEx(血条,0.9)==0 then
     	touchUp(1)
@@ -150,32 +169,46 @@ function playsong()
 	touchUp(1)
 	toast("hold stopped")
 	sleep(1400)
-	tap(638,364)
-	sleep(800)
-	tap(638,364)
-	sleep(800)
-	tap(638,364)
-	sleep(1600)
-	tap(638,364)
-	sleep(800)
-	tap(638,364)
-	sleep(800)
-	tap(638,364)
-	sleep(1600)
-	touchDown(1,500,500)
-	touchDown(2,600,600)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(300)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(300)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1100)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(300)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(300)
+	touchDown(1,638,364)
+    sleep(500)
+    touchUp(1)
+	sleep(1100)
+	touchDown(1,590,590)
+	touchDown(2,700,700)
+    sleep(500)
 	touchUp(1)
 	touchUp(2)
-	sleep(1600)
+	sleep(1100)
 	toast("two 1")
-	touchDown(1,500,500)
-	touchDown(2,600,600)
+	touchDown(1,300,300)
+	touchDown(2,800,800)
+    sleep(500)
 	touchUp(1)
 	touchUp(2)
-	sleep(1620)
+	sleep(1090)
 	toast("two 2")
-	touchDown(1,500,500)
-	touchDown(2,600,600)
+	touchDown(1,400,400)
+	touchDown(2,780,780)
 	sleep(3200)
 	touchUp(1)
 	touchUp(2)
@@ -200,6 +233,12 @@ function judgeacc()
     end
     
 end
+function judgeaccnew()---由于新版本改了dot获取机制，所以想写一个新的识别方法，用ocr，之后再看吧
+	local handle = createOcr("eng",3)--字库文件需要放入资源文件中
+    local text = ocrTextEx(handle,159,5,214,139)
+    ---math.tointeger
+    
+end
 get=math.tointeger(arr["get"])
 sleep(200)
 if arr["server"]=="0" then
@@ -209,50 +248,54 @@ else
 end
 setControlBarPosNew(0,1)
 sleep(500)
+
 while true do
-	local tid=beginThread(main)
-    	while true do
-    		if cmpColorEx(失败,0.95)==1 then
-    				stopThread(tid)
-                    toast("本次游玩失败，正在重开",0,0,12)
-                    console.println(3,"本次游玩失败，正在重开")
-                    restime=restime+1
-                    if restime ==3 then
-                    	sleep(200)
-                    	toast("失败次数过多，请求手动重启",0,0,12)
-                        console.println(3,"失败次数过多，请求手动重启")
-                        break
-                    end	
-                    sleep(2000)
-                    break
-    		elseif getold then
-            	sleep(5000)
-            	toast("成功游玩",0,0,12)
-                canjudge=false
-                restime=0
-            	break
-            elseif flag==1 or breakflag then
-                	breakflag=false
-                    stopThread(tid)
-                    sleep(2000)
-                	break
-            elseif restime ==3 then
-                sleep(200)
-                toast("失败次数过多，请求手动重启",0,0,12)
-                console.println(3,"失败次数过多，请求手动重启")
-                break
-            end
-    	end
-    if flag==1 or restime==3 then
-    	stopThread(tid)
-    	break
-    end
+	main()
 end
-if restime==3 then
-	restime=0
-    restartflag=1
-    restartScript()
-    
-else
-	exitScript()
-end
+---while true do
+---	local tid=beginThread(main)
+---    	while true do
+---    		if cmpColorEx(失败,0.95)==1 then
+ ---   				stopThread(tid)
+---                    toast("本次游玩失败，正在重开",0,0,12)
+---                    console.println(3,"本次游玩失败，正在重开")
+---                    restime=restime+1
+---                    if restime ==3 then
+---                    	sleep(200)
+---                    	toast("失败次数过多，请求手动重启",0,0,12)
+---                        console.println(3,"失败次数过多，请求手动重启")
+---                        break
+---                    end	
+---                    sleep(2000)
+---                    break
+---    		elseif getold then
+---            	sleep(5000)
+---            	toast("成功游玩",0,0,12)
+---                canjudge=false
+---                restime=0
+---            	break
+---            elseif flag==1 or breakflag then
+---                	breakflag=false
+---                    stopThread(tid)
+---                    sleep(2000)
+---                	break
+---            elseif restime ==3 then
+---                sleep(200)
+---                toast("失败次数过多，请求手动重启",0,0,12)
+---                console.println(3,"失败次数过多，请求手动重启")
+---                break
+---            end
+---    	end
+---    if flag==1 or restime==3 then
+---    	stopThread(tid)
+---    	break
+---    end
+---end
+---if restime==3 then
+---	restime=0
+---    restartflag=1
+---    restartScript()
+---    
+---else
+---	exitScript()
+---end
