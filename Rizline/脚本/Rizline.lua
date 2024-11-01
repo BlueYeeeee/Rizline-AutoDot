@@ -1,5 +1,5 @@
 require("point")
-
+require "puxiu"
 
 path= getSdPath().."/rizline.txt"
 if fileExist(path)==false then--写文件，文件不存在则创建初始化文件
@@ -11,8 +11,7 @@ function onLoadEvent(handle)
 	setUIConfig(handle,uisetfile)
 end
 action,arr = showUI("in.ui",800,600,onLoadEvent);
-
-
+curplaytime=0
 
 function main()
 	--保存配置
@@ -29,7 +28,13 @@ function main()
             console.show()
         	exitScript()
         end
-        
+        if math.tointeger(arr["lianda"])==0 and math.tointeger(arr["playtime"])==curplaytime then
+			console.println(3,"达到设定游玩次数，结束")
+            flag=1
+            发送内容="达到设定游玩次数"
+            console.show()
+        	exitScript()
+        end
 		if cmpColorEx(确定,0.9)==1 then
 			tap(752,252)
 			sleep(200)
@@ -52,6 +57,8 @@ function main()
     sleep(180)
 	playsong()
     writeLog(get)
+    curplaytime=curplaytime+1
+    print(curplaytime)
 end
 
 function playsong()
@@ -226,8 +233,10 @@ end
 sleep(200)
 if arr["server"]=="0" then
  runApp("com.PigeonGames.Rizline")
+ servername="国际服"
 else
  runApp("com.leiting.ldgj")
+ servername="国服"
 end
 sleep(1000)
 setControlBarPosNew(0,1)
