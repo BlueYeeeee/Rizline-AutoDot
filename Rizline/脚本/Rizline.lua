@@ -1,9 +1,10 @@
 require("point")
-require "puxiu"
+require("puxiu")
+
 
 path= getSdPath().."/rizline.txt"
 if fileExist(path)==false then--写文件，文件不存在则创建初始化文件
-	writeFile(path,"{\"server\":\"1\",\"Dotfull\":\"0\"}" ,false)
+	writeFile(path,"{\"server\":\"1\",\"Dotfull\":\"0\",\"notice\":\"0\",\"UID\":\"22\"}" ,false)
 end
 uisetfile=readFile(path)
 --打开界面并加载配置
@@ -16,7 +17,7 @@ curplaytime=0
 function main()
 	--保存配置
     console.dismiss()
-	txt = "\"server\":\""..arr["server"].."\",".."\"Dotfull\":\""..arr["Dotfull"].."\""
+	txt = "\"server\":\""..arr["server"].."\",".."\"Dotfull\":\""..arr["Dotfull"].."\",".."\"notice\":\""..arr["notice"].."\",".."\"UID\":\""..arr["UID"].."\""
 	writeFile(path,"{"..txt.."}" ,false)
     getold=false
 	while cmpColorEx(接下来,0.9)==0 do
@@ -25,13 +26,22 @@ function main()
         if cmpColorEx(溢出,0.9)==1 and math.tointeger(arr["Dotfull"])==0 then
         	console.println(3,"Dot溢出，结束")
             flag=1
+            if math.tointeger(arr["notice"])==0 and (arr["UID"]=="22")==false then
+    			发送内容="Dot已溢出"
+                local 剩余时间 = 类_接口.微信推送(arr["UID"],发送内容)
+                print(剩余时间)
+            end
             console.show()
         	exitScript()
         end
         if math.tointeger(arr["lianda"])==0 and math.tointeger(arr["playtime"])==curplaytime then
 			console.println(3,"达到设定游玩次数，结束")
             flag=1
-            发送内容="达到设定游玩次数"
+				if math.tointeger(arr["notice"])==0 and (arr["UID"]=="22")==false then
+    			发送内容="达到设定游玩次数"
+                local 剩余时间 = 类_接口.微信推送(arr["UID"],发送内容)
+                print(剩余时间)
+            end
             console.show()
         	exitScript()
         end
