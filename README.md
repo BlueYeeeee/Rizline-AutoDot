@@ -17,7 +17,7 @@ Rizline全自动打歌脚本，国服国际服通用<br>
 3.反复游玩Pastel Lines EZ难度<br>
 4.游玩期间判断是否因识别问题导致游玩出错，并在中途重开（仅编写了两处）<br>
 5.识别Dot是否溢出（Dot上限为2000）<br>
-6.在脚本完成设定的任务时向您发送通知（需要自己会注册Wxpusher）<br>
+6.在脚本完成设定的任务时向您发送通知（需要自己会注册Wxpusher并订阅此链接https://wxpusher.zjiecode.com/wxuser/?type=1&id=1945#/follow）才能收到通知<br>
 
 # 脚本是怎么写的？
 此脚本基于lua语言，底层原理为像素点识别和模拟点击
